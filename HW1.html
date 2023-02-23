@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D3.js</title>
+  <!-- 引入 D3 -->
+  <script src="./js/d3.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+  <svg width="300" height="300"></svg>
+
+<script>
+// 定义一个数组作为基线数据
+var dataBaseline = [12.29, 12.50, 13.11, 14.03, 15.01, 15.72, 15.99, 15.82, 15.23, 14.30, 13.28, 12.55];
+
+// 定义图表的外边距
+var margin = { top: 100, right: 20, bottom: 30, left: 40 };
+
+// 定义图表的宽度和高度
+var width = 300 - margin.left - margin.right;
+var height = 300 - margin.top - margin.bottom;
+
+// 选择 SVG 元素，并设置其宽度和高度
+var svg = d3.select('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+// 添加标题
+svg.append("text")
+    .attr("x", (width / 2))
+    .attr("y", 0 - (margin.top / 2))
+    .attr("text-anchor", "middle")
+    .style("font-size", "20px")
+    .text("基线");
+
+// 设置 x 轴比例尺和刻度
+var xScale = d3.scaleLinear()
+    .domain([1, dataBaseline.length])
+    .range([0, width]);
+var xTicks = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var xAxis = d3.axisBottom(xScale)
+    .tickFormat(function(d, i) {
+        return xTicks[i];
+    });
+
+// 设置 y 轴比例尺和刻度
+var yScale = d3.scaleLinear()
+    .domain([0, d3.max(dataBaseline)])
+    .range([height, 0]);
+var yAxis = d3.axisLeft(yScale);
+
+// 定义线段生成器
+var line = d3.line()
+    .x(function(d, i) { return xScale(i + 1); })
+    .y(function(d) { return yScale(d); });
+
+// 绘制线段
+svg.append('path')
+    .datum(dataBaseline)
+    .attr('fill', 'none')
+    .attr('stroke', 'steelblue')
+    .attr('stroke-width', 2)
+    .attr('d', line);
+
+// 绘制 x 轴和 y 轴
+svg.append('g')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(xAxis);
+svg.append('g')
+    .call(yAxis);
+</script>
+
+
+</body>
+</html>

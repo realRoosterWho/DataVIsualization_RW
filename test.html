@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>D3 Test</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.6.1/d3-tip.min.js"></script>
+
+</head>
+<body>
+  <h1>D3 Test Page1</h1>
+  <script>
+    /* Initialize tooltip */
+// 定义提示框
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html("Test Tooltip");
+
+ 
+ /* Invoke the tip in the context of your visualization */
+ vis.call(tip)
+  
+ vis.selectAll('rect')
+   .data(data)
+   .enter()
+   .append('rect')
+   .attr('width', function() { return x.rangeBand() })
+   .attr('height', function(d) { return h - y(d) })
+   .attr('y', function(d) { return y(d) })
+   .attr('x', function(d, i) { return x(i) })
+   .on('mouseover', tip.show)
+   .on('mouseout', tip.hide)
+  </script>
+</body>
+</html>
