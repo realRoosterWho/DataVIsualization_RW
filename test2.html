@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>输出结果</title>
+  </head>
+  <body>
+    <div id="result"></div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+d3.csv("temperature.csv", function(data) {
+  // 处理数据，代码省略
+  
+  var output = "处理后的数据：" + JSON.stringify(data);
+  
+  // 在页面上输出结果
+  d3.select("#result")
+    .text(output);
+});
+
+    </script>
+  </body>
+</html>

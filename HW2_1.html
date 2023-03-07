@@ -23,7 +23,7 @@
   <div id="heatmap"></div>
 
   <script>
-    d3.csv("temperature.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/realRoosterWho/DataVIsualization_RW/hw1/temperature.csv?token=GHSAT0AAAAAAB645HTR76FZGFY3EQISNBJAY7W2C2Q", function(error, data) {
       if (error) throw error;
 
       // 将 Anomaly 列的值存储到数组中
